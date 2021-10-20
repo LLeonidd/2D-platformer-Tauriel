@@ -1,0 +1,107 @@
+[gd_scene load_steps=12 format=2]
+
+[ext_resource path="res://assets/images/pxArt.png" type="Texture" id=1]
+[ext_resource path="res://assets/fonts/tigerious-font/Tigerious-ywyKe.otf" type="DynamicFontData" id=2]
+[ext_resource path="res://assets/fonts/cassandra-font/CassandraPersonalUseRegular-3BjG.ttf" type="DynamicFontData" id=3]
+[ext_resource path="res://assets/fonts/hu-the-game-cyrillic-cufonfonts/HU The Game.ttf" type="DynamicFontData" id=4]
+[ext_resource path="res://scripts/PlayButton.gd" type="Script" id=5]
+
+
+[sub_resource type="DynamicFont" id=1]
+size = 200
+font_data = ExtResource( 2 )
+
+[sub_resource type="StyleBoxFlat" id=5]
+bg_color = Color( 0.6, 0.6, 0.6, 0 )
+border_width_left = 10
+border_width_top = 10
+border_width_right = 10
+border_width_bottom = 10
+border_color = Color( 0.717647, 0.0823529, 0.0823529, 1 )
+
+[sub_resource type="StyleBoxFlat" id=6]
+bg_color = Color( 0.717647, 0.0823529, 0.0823529, 1 )
+
+[sub_resource type="StyleBoxFlat" id=2]
+bg_color = Color( 0.6, 0.6, 0.6, 0 )
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color( 1, 1, 1, 1 )
+shadow_size = 2
+
+[sub_resource type="DynamicFont" id=3]
+size = 60
+font_data = ExtResource( 4 )
+
+[sub_resource type="DynamicFont" id=4]
+size = 30
+font_data = ExtResource( 3 )
+
+[node name="MainMenu" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="pxArt" type="Sprite" parent="."]
+position = Vector2( 591.779, 539.209 )
+scale = Vector2( 2.06774, 1.91525 )
+texture = ExtResource( 1 )
+offset = Vector2( 24.6646, -72.5752 )
+
+[node name="ColorRect" type="ColorRect" parent="."]
+margin_left = 83.755
+margin_top = 84.245
+margin_right = 1199.76
+margin_bottom = 730.245
+rect_pivot_offset = Vector2( 507.779, 363.209 )
+color = Color( 0, 0, 0, 0.803922 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Taurel" type="Label" parent="."]
+margin_left = 88.0
+margin_top = 278.736
+margin_right = 1200.0
+margin_bottom = 440.736
+custom_fonts/font = SubResource( 1 )
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+text = "Tauriel"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="PlayButton" type="Button" parent="."]
+margin_left = 500.618
+margin_top = 520.822
+margin_right = 791.618
+margin_bottom = 607.822
+focus_mode = 0
+custom_styles/hover = SubResource( 5 )
+custom_styles/pressed = SubResource( 6 )
+custom_styles/normal = SubResource( 2 )
+custom_fonts/font = SubResource( 3 )
+text = "Play"
+script = ExtResource( 5 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ElvenSaga" type="Label" parent="."]
+margin_left = 83.0
+margin_top = 219.062
+margin_right = 1198.0
+margin_bottom = 284.062
+custom_fonts/font = SubResource( 4 )
+text = "Elven Saga
+"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+[connection signal="pressed" from="PlayButton" to="PlayButton" method="_on_PlayButton_pressed"]
