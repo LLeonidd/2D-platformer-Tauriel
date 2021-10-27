@@ -21,8 +21,8 @@ _global_script_class_icons={
 [application]
 
 config/name="Tauriel"
-run/main_scene="res://scenes/MainScene.tscn"
-config/icon="res://icon.png"
+run/main_scene="res://scenes/Level1.tscn"
+config/icon="res://assets/images/icon.png"
 
 [display]
 

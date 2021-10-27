@@ -28,9 +28,15 @@ func process(_delta):
 
 
 func physics_process(_delta):
+	fsm.player_root.move_and_slide(Vector2.LEFT)
 	fsm.player_root.velocity.y = fsm.player_root.SPEED_SLIDE
+	
 	if fsm.player_root.is_on_floor():
 		exit('idle')
+	if not fsm.player_root.is_on_wall():
+		exit('falling')
+	
+
 
 	
 

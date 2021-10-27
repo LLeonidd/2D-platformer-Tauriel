@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/wooden_texture.jpeg-243cc1e093de53375f1ec9e31f96126b.stex"
+path="res://.import/icon.png-e2b956fc1cad352d3b1bbca4fcd64fa9.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/textures/wooden_texture.jpeg"
-dest_files=[ "res://.import/wooden_texture.jpeg-243cc1e093de53375f1ec9e31f96126b.stex" ]
+source_file="res://assets/images/icon.png"
+dest_files=[ "res://.import/icon.png-e2b956fc1cad352d3b1bbca4fcd64fa9.stex" ]
 
 [params]
 

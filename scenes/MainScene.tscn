@@ -6,12 +6,11 @@
 [ext_resource path="res://assets/fonts/hu-the-game-cyrillic-cufonfonts/HU The Game.ttf" type="DynamicFontData" id=4]
 [ext_resource path="res://scripts/PlayButton.gd" type="Script" id=5]
 
-
 [sub_resource type="DynamicFont" id=1]
 size = 200
 font_data = ExtResource( 2 )
 
-[sub_resource type="StyleBoxFlat" id=5]
+[sub_resource type="StyleBoxFlat" id=2]
 bg_color = Color( 0.6, 0.6, 0.6, 0 )
 border_width_left = 10
 border_width_top = 10
@@ -19,10 +18,10 @@ border_width_right = 10
 border_width_bottom = 10
 border_color = Color( 0.717647, 0.0823529, 0.0823529, 1 )
 
-[sub_resource type="StyleBoxFlat" id=6]
+[sub_resource type="StyleBoxFlat" id=3]
 bg_color = Color( 0.717647, 0.0823529, 0.0823529, 1 )
 
-[sub_resource type="StyleBoxFlat" id=2]
+[sub_resource type="StyleBoxFlat" id=4]
 bg_color = Color( 0.6, 0.6, 0.6, 0 )
 border_width_left = 5
 border_width_top = 5
@@ -31,11 +30,11 @@ border_width_bottom = 5
 border_color = Color( 1, 1, 1, 1 )
 shadow_size = 2
 
-[sub_resource type="DynamicFont" id=3]
-size = 60
+[sub_resource type="DynamicFont" id=5]
+size = 40
 font_data = ExtResource( 4 )
 
-[sub_resource type="DynamicFont" id=4]
+[sub_resource type="DynamicFont" id=6]
 size = 30
 font_data = ExtResource( 3 )
 
@@ -77,15 +76,15 @@ __meta__ = {
 }
 
 [node name="PlayButton" type="Button" parent="."]
-margin_left = 500.618
-margin_top = 520.822
-margin_right = 791.618
-margin_bottom = 607.822
+margin_left = 305.839
+margin_top = 583.225
+margin_right = 500.839
+margin_bottom = 654.225
 focus_mode = 0
-custom_styles/hover = SubResource( 5 )
-custom_styles/pressed = SubResource( 6 )
-custom_styles/normal = SubResource( 2 )
-custom_fonts/font = SubResource( 3 )
+custom_styles/hover = SubResource( 2 )
+custom_styles/pressed = SubResource( 3 )
+custom_styles/normal = SubResource( 4 )
+custom_fonts/font = SubResource( 5 )
 text = "Play"
 script = ExtResource( 5 )
 __meta__ = {
@@ -97,7 +96,7 @@ margin_left = 83.0
 margin_top = 219.062
 margin_right = 1198.0
 margin_bottom = 284.062
-custom_fonts/font = SubResource( 4 )
+custom_fonts/font = SubResource( 6 )
 text = "Elven Saga
 "
 align = 1
