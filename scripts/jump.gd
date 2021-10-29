@@ -4,11 +4,12 @@ var fsm: StateMachine
 
 
 func enter():
-	print("Jump")
 	#yield(get_tree().create_timer(2.0), "timeout")
 	fsm.player.play('jump')
 	fsm.player_root.velocity.y = fsm.player_root.JUMPFORCE
 	fsm.player_root.double_jump = true
+
+
 
 
 func exit(next_state):
@@ -39,7 +40,16 @@ func physics_process(_delta):
 		exit('run')
 	if fsm.player_root.is_on_floor():
 		exit('idle')
-	if fsm.player_root.is_on_wall() and (Input.is_action_pressed(fsm.player_root.ui_left) or Input.is_action_pressed(fsm.player_root.ui_right)):
+	if (
+		fsm.player_root.is_on_wall() 
+		and 
+		(Input.is_action_pressed(fsm.player_root.ui_left) 
+		or 
+		Input.is_action_pressed(fsm.player_root.ui_right)
+		)
+		and 
+		fsm.player_root.velocity.y < fsm.MIN_VELOCITY_FOR_SLIDE
+		):
 		exit('slide')
 	if fsm.player_root.velocity.y>0:
 		exit('falling')

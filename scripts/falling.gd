@@ -7,6 +7,7 @@ func enter():
 
 
 func exit(next_state):
+	fsm.audio.get_node('JumpingEnd').play()
 	fsm.change_to(next_state)
 
 
@@ -24,7 +25,7 @@ func physics_process(_delta):
 		fsm.player_root.velocity.x = fsm.get_direction(false)*fsm.player_root.SPEED
 		fsm.set_direction(fsm.player, false)
 
-	if fsm.player_root.is_on_wall() and (Input.is_action_pressed(fsm.player_root.ui_left) or Input.is_action_pressed(fsm.player_root.ui_right)):
+	if fsm.wall_detector() and (Input.is_action_pressed(fsm.player_root.ui_left) or Input.is_action_pressed(fsm.player_root.ui_right)):
 		exit('slide')
 
 func input(_event):

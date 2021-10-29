@@ -2,12 +2,36 @@ extends Node
 
 var fsm: StateMachine
 
+
+func play_sound_sword_attack():
+	var delta_volume=4
+	var value_db_1 = -9
+	var value_db_2 = -15
+	fsm.audio.get_node('SwordAttack_1').volume_db = value_db_1
+	fsm.audio.get_node('SwordAttack_2').volume_db = value_db_2
+	fsm.audio.get_node('SwordAttack_1').play()
+	yield(get_tree().create_timer(.3), "timeout")
+	fsm.audio.get_node('SwordAttack_1').volume_db = fsm.audio.get_node('SwordAttack_1').get_volume_db()+3 
+	fsm.audio.get_node('SwordAttack_1').play()
+	yield(get_tree().create_timer(.3), "timeout")
+	fsm.audio.get_node('SwordAttack_2').play()
+
+func stop_sound_sword_attack():
+	fsm.audio.get_node('SwordAttack_1').stop()
+	fsm.audio.get_node('SwordAttack_2').stop()
+	
+
 func enter():
 	#yield(get_tree().create_timer(2.0), "timeout")
 	fsm.player.play('close_attack')
+	#Play sound attack
+	play_sound_sword_attack()
+	
+
 
 
 func exit(next_state):
+	stop_sound_sword_attack()
 	fsm.change_to(next_state)
 
 ####################################################

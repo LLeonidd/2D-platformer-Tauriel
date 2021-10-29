@@ -2,9 +2,11 @@ extends Node
 
 var fsm: StateMachine
 var direction
+
 onready var slide_particles
 
 func enter():
+	fsm.audio.get_node('Sliding').play()
 	fsm.player.play('slide')
 	fsm.player_root.double_jump = true
 	slide_particles=fsm.player.get_node('slide_particles')
@@ -17,6 +19,7 @@ func enter():
 
 
 func exit(next_state):
+	fsm.audio.get_node('Sliding').stop()
 	slide_particles.emitting = false
 	slide_particles.visible = false
 	fsm.change_to(next_state)
@@ -28,21 +31,21 @@ func process(_delta):
 
 
 func physics_process(_delta):
-	fsm.player_root.move_and_slide(Vector2.LEFT)
 	fsm.player_root.velocity.y = fsm.player_root.SPEED_SLIDE
-	
 	if fsm.player_root.is_on_floor():
 		exit('idle')
-	if not fsm.player_root.is_on_wall():
+	if not fsm.wall_detector():
 		exit('falling')
-	
 
-
-	
 
 func input(_event):
-	if _event.is_action_pressed(fsm.player_root.ui_left) or _event.is_action_pressed(fsm.player_root.ui_right):
-		exit('falling')
+	if _event.is_action_pressed(fsm.player_root.ui_left):
+		if not fsm.left_wall_ray.is_colliding():
+			exit('jump')
+	if _event.is_action_pressed(fsm.player_root.ui_right):
+		if not fsm.right_wall_ray.is_colliding():
+			exit('jump')
+	
 	if _event.is_action_pressed(fsm.player_root.ui_up):
 		Input.action_release(fsm.player_root.ui_left)
 		Input.action_release(fsm.player_root.ui_right)

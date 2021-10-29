@@ -14,6 +14,8 @@ func enter():
 			fsm.player.get_node('Gun').get_position()[1]
 		)
 	)
+	#Play sound attack
+	fsm.audio.get_node('ArcheryAttack').play()
 	# Play bullet
 	fsm.player.get_node('Gun').shoot(fsm.get_direction(direction))
 	yield(get_tree().create_timer(0.1), "timeout")

@@ -4,10 +4,12 @@ var fsm: StateMachine
 
 
 func enter():
+	fsm.audio.get_node('Running').play()
 	fsm.player.play('run')
 
 
 func exit(next_state):
+	fsm.audio.get_node('Running').stop()
 	fsm.change_to(next_state)
 
 

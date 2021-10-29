@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/565894__dundalkkirk__softsurfacerun.wav-f12b4ad487ad515528b09b336bc6f943.sample"
+
+[deps]
+
+source_file="res://assets/audio/effects/565894__dundalkkirk__softsurfacerun.wav"
+dest_files=[ "res://.import/565894__dundalkkirk__softsurfacerun.wav-f12b4ad487ad515528b09b336bc6f943.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=true
+compress/mode=0

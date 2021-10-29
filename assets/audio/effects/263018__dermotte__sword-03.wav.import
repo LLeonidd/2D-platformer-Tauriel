@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/263018__dermotte__sword-03.wav-7909de1d3fd2d406e27bcfe8b95f2e43.sample"
+
+[deps]
+
+source_file="res://assets/audio/effects/263018__dermotte__sword-03.wav"
+dest_files=[ "res://.import/263018__dermotte__sword-03.wav-7909de1d3fd2d406e27bcfe8b95f2e43.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

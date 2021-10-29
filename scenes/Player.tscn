@@ -1,4 +1,4 @@
-[gd_scene load_steps=127 format=2]
+[gd_scene load_steps=133 format=2]
 
 [ext_resource path="res://scripts/run.gd" type="Script" id=1]
 [ext_resource path="res://scripts/jump.gd" type="Script" id=2]
@@ -18,9 +18,15 @@
 [ext_resource path="res://scripts/falling.gd" type="Script" id=16]
 [ext_resource path="res://assets/Actors/RED_HOOD/parts/red hood itch free_atac2.png" type="Texture" id=17]
 [ext_resource path="res://scripts/Gun.gd" type="Script" id=18]
+[ext_resource path="res://assets/audio/effects/253548__xtrgamr__archery.wav" type="AudioStream" id=19]
+[ext_resource path="res://assets/audio/effects/263018__dermotte__sword-03.wav" type="AudioStream" id=20]
+[ext_resource path="res://assets/audio/effects/547600__saviraz__sword-attack.wav" type="AudioStream" id=21]
+[ext_resource path="res://assets/audio/effects/565894__dundalkkirk__softsurfacerun.wav" type="AudioStream" id=22]
+[ext_resource path="res://assets/audio/effects/jump-landing-wood-01.wav" type="AudioStream" id=23]
+[ext_resource path="res://assets/audio/effects/sliding6.ogg" type="AudioStream" id=24]
 
-[sub_resource type="CapsuleShape2D" id=1]
-height = 11.7207
+[sub_resource type="RectangleShape2D" id=109]
+extents = Vector2( 7.25, 15.75 )
 
 [sub_resource type="AtlasTexture" id=2]
 flags = 4
@@ -605,6 +611,18 @@ color = Color( 0.152941, 0.137255, 0.137255, 1 )
 [node name="Player" type="KinematicBody2D"]
 script = ExtResource( 8 )
 
+[node name="LeftWall" type="RayCast2D" parent="."]
+position = Vector2( -1.58512, 2.16912 )
+rotation = 1.5708
+enabled = true
+cast_to = Vector2( 0, 15 )
+
+[node name="RightWall" type="RayCast2D" parent="."]
+position = Vector2( -1.58512, 2.16912 )
+rotation = -1.5708
+enabled = true
+cast_to = Vector2( 0, 15 )
+
 [node name="current_state" type="Label" parent="."]
 margin_left = -11.4264
 margin_top = -33.8062
@@ -616,13 +634,14 @@ __meta__ = {
 }
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource( 1 )
+position = Vector2( -1.625, 1.25 )
+shape = SubResource( 109 )
 
 [node name="Sprite" type="AnimatedSprite" parent="."]
 position = Vector2( -3, -2 )
 frames = SubResource( 105 )
-animation = "slide"
-frame = 2
+animation = "idle"
+frame = 1
 playing = true
 
 [node name="slide_particles" type="Particles2D" parent="Sprite"]
@@ -662,3 +681,29 @@ script = ExtResource( 16 )
 
 [node name="air_attack" type="Node" parent="states"]
 script = ExtResource( 7 )
+
+[node name="MusicEffects" type="Node" parent="."]
+
+[node name="ArcheryAttack" type="AudioStreamPlayer" parent="MusicEffects"]
+stream = ExtResource( 19 )
+volume_db = -5.0
+
+[node name="SwordAttack_1" type="AudioStreamPlayer" parent="MusicEffects"]
+stream = ExtResource( 20 )
+volume_db = -5.0
+
+[node name="SwordAttack_2" type="AudioStreamPlayer" parent="MusicEffects"]
+stream = ExtResource( 21 )
+volume_db = -7.0
+
+[node name="Running" type="AudioStreamPlayer" parent="MusicEffects"]
+stream = ExtResource( 22 )
+
+[node name="JumpingEnd" type="AudioStreamPlayer" parent="MusicEffects"]
+stream = ExtResource( 23 )
+volume_db = 10.0
+pitch_scale = 2.0
+
+[node name="Sliding" type="AudioStreamPlayer" parent="MusicEffects"]
+stream = ExtResource( 24 )
+volume_db = -80.0

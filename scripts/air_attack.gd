@@ -2,8 +2,14 @@ extends Node
 
 var fsm: StateMachine
 
+func play_sound_sword_attack():
+	var value_db_2 = -10
+	fsm.audio.get_node('SwordAttack_2').play()
+
 func enter():
 	fsm.player.play('air_attack_close')
+	#Play sound attack
+	play_sound_sword_attack()
 	yield(get_tree().create_timer(0.2), "timeout")
 	exit('falling')
 

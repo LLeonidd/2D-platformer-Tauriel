@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/547600__saviraz__sword-attack.wav-6180fcd29e8175f50e4c283b54c68775.sample"
+
+[deps]
+
+source_file="res://assets/audio/effects/547600__saviraz__sword-attack.wav"
+dest_files=[ "res://.import/547600__saviraz__sword-attack.wav-6180fcd29e8175f50e4c283b54c68775.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0
