@@ -34,6 +34,8 @@ func physics_process(_delta):
 		fsm.set_direction(fsm.player, false)
 
 	# Return to next station
+	if fsm.player_root.dead_status:
+		exit('dead')
 	if not Input.is_action_pressed(fsm.player_root.ui_up) and fsm.player_root.is_on_floor():
 		exit('idle')
 	if (Input.is_action_pressed(fsm.player_root.ui_left) or Input.is_action_pressed(fsm.player_root.ui_right)) and  fsm.player_root.is_on_floor():
@@ -53,6 +55,7 @@ func physics_process(_delta):
 		exit('slide')
 	if fsm.player_root.velocity.y>0:
 		exit('falling')
+
 	
 
 

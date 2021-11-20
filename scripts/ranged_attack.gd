@@ -32,7 +32,8 @@ func process(_delta):
 	#	fsm.back()
 
 func physics_process(_delta):
-	pass
+	if fsm.player_root.dead_status:
+		exit('dead')
 
 func input(_event):
 	pass

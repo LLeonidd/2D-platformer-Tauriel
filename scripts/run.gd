@@ -28,6 +28,8 @@ func physics_process(_delta):
 		exit('idle')
 	if not fsm.player_root.is_on_floor():
 		exit('falling')
+	if fsm.player_root.dead_status:
+		exit('dead')
 
 
 func input(_event):

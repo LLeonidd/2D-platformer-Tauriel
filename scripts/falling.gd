@@ -16,6 +16,8 @@ func process(_delta):
 	pass
 
 func physics_process(_delta):
+	if fsm.player_root.dead_status:
+		exit('dead')
 	if fsm.player_root.is_on_floor():
 		exit('idle')
 	if Input.is_action_pressed(fsm.player_root.ui_right):

@@ -13,6 +13,8 @@ var ui_right = 'ui_right'
 var ui_up = 'ui_up'
 var ui_close_attack = 'ui_close_attack'
 var ui_ranged_attack = 'ui_ranged_attack'
+var dead_status = false
+var object_collision
 
 
 func _physics_process(delta):
@@ -24,4 +26,11 @@ func _physics_process(delta):
 	# Interpolates the numbers x to 0, in 30% increments 
 	velocity.x = lerp(velocity.x, 0, 0.3) 
 
+func dead(from_object):
+	dead_status = true
+	object_collision = from_object
+	#get_node("Sprite").play('heart')	
+	#print('QQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQ')
+	#yield(get_tree().create_timer(0.05), "timeout")
+	#from_object.get_node('KillingBeamAreaShape').get_node('KillingBeamBody').set_collision_mask_bit(0, false)
 

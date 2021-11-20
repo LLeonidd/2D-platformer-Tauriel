@@ -19,6 +19,8 @@ func process(_delta):
 		exit("run")
 	if not fsm.player_root.is_on_floor():
 		exit('falling')
+	if fsm.player_root.dead_status:
+		exit('dead')
 
 
 func physics_process(_delta):

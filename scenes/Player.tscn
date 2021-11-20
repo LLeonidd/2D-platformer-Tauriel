@@ -1,4 +1,4 @@
-[gd_scene load_steps=133 format=2]
+[gd_scene load_steps=142 format=2]
 
 [ext_resource path="res://scripts/run.gd" type="Script" id=1]
 [ext_resource path="res://scripts/jump.gd" type="Script" id=2]
@@ -24,8 +24,11 @@
 [ext_resource path="res://assets/audio/effects/565894__dundalkkirk__softsurfacerun.wav" type="AudioStream" id=22]
 [ext_resource path="res://assets/audio/effects/jump-landing-wood-01.wav" type="AudioStream" id=23]
 [ext_resource path="res://assets/audio/effects/sliding6.ogg" type="AudioStream" id=24]
+[ext_resource path="res://assets/Actors/RED_HOOD/parts/red hood itch free_heart.png" type="Texture" id=25]
+[ext_resource path="res://scripts/dead.gd" type="Script" id=26]
+[ext_resource path="res://assets/Actors/RED_HOOD/parts/red hood itch free_wakeup2.png" type="Texture" id=27]
 
-[sub_resource type="RectangleShape2D" id=109]
+[sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 7.25, 15.75 )
 
 [sub_resource type="AtlasTexture" id=2]
@@ -543,7 +546,52 @@ flags = 4
 atlas = ExtResource( 11 )
 region = Rect2( 640, 0, 80, 80 )
 
-[sub_resource type="SpriteFrames" id=105]
+[sub_resource type="AtlasTexture" id=105]
+flags = 4
+atlas = ExtResource( 25 )
+region = Rect2( 0, 0, 80, 80 )
+
+[sub_resource type="AtlasTexture" id=106]
+flags = 4
+atlas = ExtResource( 25 )
+region = Rect2( 80, 0, 80, 80 )
+
+[sub_resource type="AtlasTexture" id=107]
+flags = 4
+atlas = ExtResource( 25 )
+region = Rect2( 160, 0, 80, 80 )
+
+[sub_resource type="AtlasTexture" id=108]
+flags = 4
+atlas = ExtResource( 25 )
+region = Rect2( 240, 0, 80, 80 )
+
+[sub_resource type="AtlasTexture" id=109]
+flags = 4
+atlas = ExtResource( 25 )
+region = Rect2( 320, 0, 80, 80 )
+
+[sub_resource type="AtlasTexture" id=110]
+flags = 4
+atlas = ExtResource( 25 )
+region = Rect2( 400, 0, 80, 80 )
+
+[sub_resource type="AtlasTexture" id=113]
+flags = 4
+atlas = ExtResource( 27 )
+region = Rect2( 0, 0, 80, 80 )
+
+[sub_resource type="AtlasTexture" id=114]
+flags = 4
+atlas = ExtResource( 27 )
+region = Rect2( 80, 0, 80, 80 )
+
+[sub_resource type="AtlasTexture" id=111]
+flags = 4
+atlas = ExtResource( 25 )
+region = Rect2( 480, 0, 80, 80 )
+
+[sub_resource type="SpriteFrames" id=112]
 animations = [ {
 "frames": [ SubResource( 2 ), SubResource( 3 ), SubResource( 4 ), SubResource( 5 ) ],
 "loop": true,
@@ -584,31 +632,17 @@ animations = [ {
 "loop": true,
 "name": "ranged_attack",
 "speed": 20.0
+}, {
+"frames": [ SubResource( 105 ), SubResource( 106 ), SubResource( 107 ), SubResource( 108 ), SubResource( 109 ), SubResource( 110 ), SubResource( 113 ), SubResource( 114 ), SubResource( 113 ), SubResource( 111 ) ],
+"loop": true,
+"name": "heart",
+"speed": 10.0
 } ]
 
-[sub_resource type="Curve" id=106]
-_data = [ Vector2( 0.0176991, 0.356818 ), 0.0, 0.0, 0, 0, Vector2( 1, 1 ), 0.0, 0.0, 0, 0 ]
-
-[sub_resource type="CurveTexture" id=107]
-curve = SubResource( 106 )
-
-[sub_resource type="ParticlesMaterial" id=108]
-render_priority = 2
-flag_disable_z = true
-direction = Vector3( 100, 200, 500 )
-spread = 52.58
-flatness = 0.3
-gravity = Vector3( -30, -50, 0 )
-initial_velocity = 5.0
-initial_velocity_random = 0.34
-orbit_velocity = 0.0
-orbit_velocity_random = 0.0
-scale = 2.0
-scale_random = 0.59
-scale_curve = SubResource( 107 )
-color = Color( 0.152941, 0.137255, 0.137255, 1 )
-
-[node name="Player" type="KinematicBody2D"]
+[node name="Player" type="KinematicBody2D" groups=[
+"Player",
+]]
+position = Vector2( -6, -8 )
 script = ExtResource( 8 )
 
 [node name="LeftWall" type="RayCast2D" parent="."]
@@ -635,31 +669,48 @@ __meta__ = {
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2( -1.625, 1.25 )
-shape = SubResource( 109 )
+shape = SubResource( 1 )
 
 [node name="Sprite" type="AnimatedSprite" parent="."]
 position = Vector2( -3, -2 )
-frames = SubResource( 105 )
-animation = "idle"
-frame = 1
+frames = SubResource( 112 )
+animation = "heart"
+frame = 6
 playing = true
-
-[node name="slide_particles" type="Particles2D" parent="Sprite"]
-position = Vector2( 10.226, -3.717 )
-amount = 30
-explosiveness = 0.31
-randomness = 0.9
-process_material = SubResource( 108 )
 
 [node name="Gun" type="Position2D" parent="Sprite"]
 position = Vector2( 11, 1 )
 script = ExtResource( 18 )
+
+[node name="slide_particles" type="CPUParticles2D" parent="Sprite"]
+position = Vector2( 9.84444, 5.33936 )
+emitting = false
+amount = 40
+lifetime = 1.5
+explosiveness = 0.02
+randomness = 0.5
+lifetime_randomness = 0.6
+emission_shape = 1
+emission_sphere_radius = 1.92
+direction = Vector2( -3, 1 )
+spread = 69.6
+gravity = Vector2( -10, -98 )
+initial_velocity = 7.19
+initial_velocity_random = 0.71
+angular_velocity = 41.44
+angular_velocity_random = 0.04
+scale_amount = 2.0
+scale_amount_random = 0.99
+color = Color( 0.117647, 0.101961, 0.101961, 1 )
 
 [node name="states" type="Node" parent="."]
 script = ExtResource( 4 )
 
 [node name="idle" type="Node" parent="states"]
 script = ExtResource( 3 )
+
+[node name="dead" type="Node" parent="states"]
+script = ExtResource( 26 )
 
 [node name="run" type="Node" parent="states"]
 script = ExtResource( 1 )
@@ -686,7 +737,7 @@ script = ExtResource( 7 )
 
 [node name="ArcheryAttack" type="AudioStreamPlayer" parent="MusicEffects"]
 stream = ExtResource( 19 )
-volume_db = -5.0
+volume_db = -25.0
 
 [node name="SwordAttack_1" type="AudioStreamPlayer" parent="MusicEffects"]
 stream = ExtResource( 20 )
@@ -701,9 +752,24 @@ stream = ExtResource( 22 )
 
 [node name="JumpingEnd" type="AudioStreamPlayer" parent="MusicEffects"]
 stream = ExtResource( 23 )
-volume_db = 10.0
+volume_db = 1.0
 pitch_scale = 2.0
 
 [node name="Sliding" type="AudioStreamPlayer" parent="MusicEffects"]
 stream = ExtResource( 24 )
 volume_db = -80.0
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2( 0, -8 )
+offset = Vector2( 0, -140 )
+current = true
+zoom = Vector2( 0.7, 0.7 )
+process_mode = 0
+limit_left = 0
+limit_smoothed = true
+smoothing_enabled = true
+smoothing_speed = 2.0
+offset_h = 1.0
+offset_v = 0.48
+drag_margin_left = 0.03
+drag_margin_right = 0.05
