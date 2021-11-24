@@ -12,19 +12,19 @@ func enter():
 	
 	#fsm.player_root.object_collision.set_collision_mask_bit(0, true)
 	var current_level = fsm.player_root.find_parent('Level1').get_node('PlatformLevel1')
-	print(current_level.get_node('Checkpoint1').get_position())
 	
 	fsm.player_root.set_position(current_level.get_node('Checkpoint1').get_position())
+	
+	
 	current_level.get_node('Checkpoint1').play()
-	
-	
-	
+
 	fsm.player_root.dead_status = false
 	exit('idle')
 
 
 
 func exit(next_state):
+	fsm.player_root.camera_normalize()
 	fsm.change_to(next_state)
 
 

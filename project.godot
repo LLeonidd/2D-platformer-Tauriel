@@ -13,9 +13,15 @@ _global_script_classes=[ {
 "class": "StateMachine",
 "language": "GDScript",
 "path": "res://scripts/StateMachine.gd"
+}, {
+"base": "Node",
+"class": "StateMachineForGoblin",
+"language": "GDScript",
+"path": "res://scripts/StateMachineForGoblin.gd"
 } ]
 _global_script_class_icons={
-"StateMachine": ""
+"StateMachine": "",
+"StateMachineForGoblin": ""
 }
 
 [application]
@@ -46,6 +52,7 @@ ui_ranged_attack={
 
 2d_physics/layer_1="Player"
 2d_physics/layer_2="Enemy"
+2d_physics/layer_3="Platfrom"
 
 [rendering]
 

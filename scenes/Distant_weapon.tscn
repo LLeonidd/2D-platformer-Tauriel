@@ -7,6 +7,7 @@
 extents = Vector2( 6.47396, 0.505768 )
 
 [node name="Distant_weapon" type="RigidBody2D"]
+collision_mask = 6
 script = ExtResource( 2 )
 
 [node name="BulletCollisionShape" type="CollisionShape2D" parent="."]

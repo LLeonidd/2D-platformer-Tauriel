@@ -1,4 +1,4 @@
-[gd_scene load_steps=142 format=2]
+[gd_scene load_steps=143 format=2]
 
 [ext_resource path="res://scripts/run.gd" type="Script" id=1]
 [ext_resource path="res://scripts/jump.gd" type="Script" id=2]
@@ -576,22 +576,22 @@ flags = 4
 atlas = ExtResource( 25 )
 region = Rect2( 400, 0, 80, 80 )
 
-[sub_resource type="AtlasTexture" id=113]
+[sub_resource type="AtlasTexture" id=111]
 flags = 4
 atlas = ExtResource( 27 )
 region = Rect2( 0, 0, 80, 80 )
 
-[sub_resource type="AtlasTexture" id=114]
+[sub_resource type="AtlasTexture" id=112]
 flags = 4
 atlas = ExtResource( 27 )
 region = Rect2( 80, 0, 80, 80 )
 
-[sub_resource type="AtlasTexture" id=111]
+[sub_resource type="AtlasTexture" id=113]
 flags = 4
 atlas = ExtResource( 25 )
 region = Rect2( 480, 0, 80, 80 )
 
-[sub_resource type="SpriteFrames" id=112]
+[sub_resource type="SpriteFrames" id=114]
 animations = [ {
 "frames": [ SubResource( 2 ), SubResource( 3 ), SubResource( 4 ), SubResource( 5 ) ],
 "loop": true,
@@ -601,7 +601,7 @@ animations = [ {
 "frames": [ SubResource( 6 ), SubResource( 7 ), SubResource( 8 ), SubResource( 9 ), SubResource( 10 ), SubResource( 11 ), SubResource( 12 ), SubResource( 13 ), SubResource( 14 ), SubResource( 15 ), SubResource( 16 ), SubResource( 17 ), SubResource( 18 ), SubResource( 19 ), SubResource( 20 ), SubResource( 21 ), SubResource( 22 ), SubResource( 23 ) ],
 "loop": true,
 "name": "idle",
-"speed": 20.0
+"speed": 15.0
 }, {
 "frames": [ SubResource( 24 ), SubResource( 25 ), SubResource( 26 ) ],
 "loop": true,
@@ -633,29 +633,35 @@ animations = [ {
 "name": "ranged_attack",
 "speed": 20.0
 }, {
-"frames": [ SubResource( 105 ), SubResource( 106 ), SubResource( 107 ), SubResource( 108 ), SubResource( 109 ), SubResource( 110 ), SubResource( 113 ), SubResource( 114 ), SubResource( 113 ), SubResource( 111 ) ],
+"frames": [ SubResource( 105 ), SubResource( 106 ), SubResource( 107 ), SubResource( 108 ), SubResource( 109 ), SubResource( 110 ), SubResource( 111 ), SubResource( 112 ), SubResource( 111 ), SubResource( 113 ) ],
 "loop": true,
 "name": "heart",
 "speed": 10.0
 } ]
 
+[sub_resource type="RectangleShape2D" id=115]
+extents = Vector2( 7.52235, 15.6189 )
+
 [node name="Player" type="KinematicBody2D" groups=[
 "Player",
 ]]
 position = Vector2( -6, -8 )
+collision_mask = 4
 script = ExtResource( 8 )
 
 [node name="LeftWall" type="RayCast2D" parent="."]
-position = Vector2( -1.58512, 2.16912 )
+position = Vector2( -4.58512, 2.16912 )
 rotation = 1.5708
 enabled = true
 cast_to = Vector2( 0, 15 )
+collision_mask = 4
 
 [node name="RightWall" type="RayCast2D" parent="."]
 position = Vector2( -1.58512, 2.16912 )
 rotation = -1.5708
 enabled = true
 cast_to = Vector2( 0, 15 )
+collision_mask = 4
 
 [node name="current_state" type="Label" parent="."]
 margin_left = -11.4264
@@ -673,9 +679,9 @@ shape = SubResource( 1 )
 
 [node name="Sprite" type="AnimatedSprite" parent="."]
 position = Vector2( -3, -2 )
-frames = SubResource( 112 )
-animation = "heart"
-frame = 6
+frames = SubResource( 114 )
+animation = "idle"
+frame = 15
 playing = true
 
 [node name="Gun" type="Position2D" parent="Sprite"]
@@ -773,3 +779,11 @@ offset_h = 1.0
 offset_v = 0.48
 drag_margin_left = 0.03
 drag_margin_right = 0.05
+
+[node name="ColliderArea" type="Area2D" parent="." groups=[
+"Player",
+]]
+
+[node name="CollisionShapeAreaPlayer" type="CollisionShape2D" parent="ColliderArea"]
+position = Vector2( -1.47157, 0.840893 )
+shape = SubResource( 115 )

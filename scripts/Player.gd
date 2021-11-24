@@ -15,6 +15,16 @@ var ui_close_attack = 'ui_close_attack'
 var ui_ranged_attack = 'ui_ranged_attack'
 var dead_status = false
 var object_collision
+var camera_normal_offset_x = 0
+var camera_normal_offset_y = -140
+var camera_normal_zoom_x
+var camera_normal_zoom_y
+
+func _ready():
+	camera_normal_zoom_x = self.get_node("Camera2D").get_zoom()[0]
+	camera_normal_zoom_y = self.get_node("Camera2D").get_zoom()[1]
+	camera_normal_offset_x = self.get_node("Camera2D").get_offset()[0]
+	camera_normal_offset_y = self.get_node("Camera2D").get_offset()[1]
 
 
 func _physics_process(delta):
@@ -26,11 +36,15 @@ func _physics_process(delta):
 	# Interpolates the numbers x to 0, in 30% increments 
 	velocity.x = lerp(velocity.x, 0, 0.3) 
 
+
 func dead(from_object):
 	dead_status = true
 	object_collision = from_object
-	#get_node("Sprite").play('heart')	
-	#print('QQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQ')
-	#yield(get_tree().create_timer(0.05), "timeout")
-	#from_object.get_node('KillingBeamAreaShape').get_node('KillingBeamBody').set_collision_mask_bit(0, false)
+	
 
+func camera_normalize():
+	print('OFSET ', camera_normal_offset_x,'    ', camera_normal_offset_y)
+	print('ZOOM ', camera_normal_zoom_x,'    ', camera_normal_zoom_y)
+	self.get_node('Camera2D').set_offset(Vector2(camera_normal_offset_x, camera_normal_offset_y))
+	self.get_node('Camera2D').set_zoom(Vector2(camera_normal_zoom_x, camera_normal_zoom_y))
+	

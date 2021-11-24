@@ -1,12 +1,13 @@
 [gd_scene load_steps=3 format=2]
 
-[ext_resource path="res://scenes/ZoomNormalChekpoint.gd" type="Script" id=1]
+[ext_resource path="res://scripts/ZoomNormalChekpoint.gd" type="Script" id=1]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 45.6857, 24.3755 )
 
-[node name="ZoomNormalChekpoint" type="Area2D"]
+[node name="ZoomChekpoint" type="Area2D"]
 script = ExtResource( 1 )
+on_exit = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2( 1188.01, 565.305 )
