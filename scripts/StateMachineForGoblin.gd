@@ -2,7 +2,7 @@ extends Node
 
 class_name StateMachineForGoblin
 
-const DEBUG = true
+const DEBUG = false
 const PATH_TO_PARENT = '../'
 const PLAYER_OBJECT = 'Sprite' 
 const SATATE_LABEL = 'current_state'
@@ -80,6 +80,8 @@ func _physics_process(delta):
 		state.physics_process(delta)
 	if check_dead():
 		change_to('dead')
+	if check_hit():
+		change_to('hit')
 	
 
 
@@ -225,5 +227,15 @@ func check_dead():
 		return true
 	else: 
 		return false
+		
+func check_hit():
+	if enemy_root.hit_trigger:
+		enemy_root.hit_trigger = false
+		return true
+	else: 
+		return false
+		
+func dead_or_hit_check():
+	return check_dead() or check_hit()
 		
 		

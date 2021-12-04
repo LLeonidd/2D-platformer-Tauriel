@@ -43,6 +43,11 @@ func process(_delta):
 	pass
 
 func physics_process(_delta):
+	if fsm.player.get_frame() in fsm.CLOSE_ATTACK_FRAMES:
+		fsm.close_attack_area.get_node('Strike1').set_disabled(false)
+	else:
+		fsm.close_attack_area.get_node('Strike1').set_disabled(true)
+	
 	if fsm.player_root.dead_status:
 		exit('dead')
 	if not Input.is_action_pressed(fsm.player_root.ui_close_attack):

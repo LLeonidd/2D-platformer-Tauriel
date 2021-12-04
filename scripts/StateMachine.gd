@@ -2,7 +2,7 @@ extends Node
 
 class_name StateMachine
 
-const DEBUG = true
+const DEBUG = false
 const PATH_TO_PARENT = '../'
 const PLAYER_OBJECT = 'Sprite' 
 const SATATE_LABEL = 'current_state'
@@ -11,7 +11,8 @@ const LEFT_WALL = 'LeftWall'
 const MIN_VELOCITY_FOR_SLIDE = -500 # The speed at which sliding is available. For example, do not slide on low walls
 const MAX_VELOCITY_DEADLY_FALLING = 1000 
 const AUDIO = 'MusicEffects'
-
+const CLOSE_ATTACK_AREA = 'CloseAttackArea'
+const CLOSE_ATTACK_FRAMES = [2,8,15]
 var state: Object
 var history = []
 
@@ -19,6 +20,7 @@ var history = []
 
 onready var player_root = get_node(PATH_TO_PARENT)
 onready var player = player_root.find_node(PLAYER_OBJECT)
+onready var close_attack_area = player.get_node(CLOSE_ATTACK_AREA)
 onready var state_label = player_root.find_node(SATATE_LABEL)
 onready var right_wall_ray = player_root.find_node(RIGHT_WALL)
 onready var left_wall_ray = player_root.find_node(LEFT_WALL)

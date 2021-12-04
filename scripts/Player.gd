@@ -47,4 +47,4 @@ func camera_normalize():
 	print('ZOOM ', camera_normal_zoom_x,'    ', camera_normal_zoom_y)
 	self.get_node('Camera2D').set_offset(Vector2(camera_normal_offset_x, camera_normal_offset_y))
 	self.get_node('Camera2D').set_zoom(Vector2(camera_normal_zoom_x, camera_normal_zoom_y))
-	
+
