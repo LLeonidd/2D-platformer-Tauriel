@@ -15,7 +15,7 @@ const AUDIO = 'MusicEffects'
 var state: Object
 var history = []
 
-var offset_list = [15,0] # values for offset left (0-index) or right (1-index), for correct direction
+#var offset_list = [15,0] # values for offset left (0-index) or right (1-index), for correct direction
 
 onready var player_root = get_node(PATH_TO_PARENT)
 onready var player = player_root.find_node(PLAYER_OBJECT)
@@ -55,7 +55,7 @@ func get_history_back_state():
 func _enter_state():
 	if DEBUG:
 		state_label.text = state.name
-		print("Entering state: ", state.name)
+		print("Entering state (player): ", state.name)
 	# Give the new state a reference to it's state machine i.e. this one
 	state.fsm = self
 	state.enter()
@@ -97,8 +97,8 @@ func get_direction(direction_right):
 	return 2*int(direction_right)-1
 	
 	
-func get_offset_x(direction_right):
-	return offset_list[int(direction_right)]
+#func get_offset_x(direction_right):
+#	return offset_list[int(direction_right)]
 	
 
 func set_direction(player, direction_right):
@@ -108,7 +108,11 @@ func set_direction(player, direction_right):
 
 
 func wall_detector():
-	return left_wall_ray.is_colliding() or right_wall_ray.is_colliding()
+	var left_direction = false
+	var right_direction = false
+	if self.player.is_flipped_h(): left_direction = true
+	if not self.player.is_flipped_h(): right_direction = true
+	return (left_wall_ray.is_colliding() and left_direction)  or (right_wall_ray.is_colliding() and right_direction)
 	
 
 

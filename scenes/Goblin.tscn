@@ -1,4 +1,4 @@
-[gd_scene load_steps=84 format=2]
+[gd_scene load_steps=86 format=2]
 
 [ext_resource path="res://assets/Actors/Goblin/Attack3.png" type="Texture" id=1]
 [ext_resource path="res://assets/Actors/Goblin/Idle.png" type="Texture" id=2]
@@ -13,6 +13,7 @@
 [ext_resource path="res://scripts/Goblin.gd" type="Script" id=11]
 [ext_resource path="res://scripts/run_goblin.gd" type="Script" id=12]
 [ext_resource path="res://scripts/close_attack_goblin.gd" type="Script" id=13]
+[ext_resource path="res://scripts/dead_goblin.gd" type="Script" id=14]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 10, 16.542 )
@@ -398,20 +399,26 @@ animations = [ {
 "speed": 5.0
 } ]
 
-[node name="Goblin" type="KinematicBody2D"]
+[sub_resource type="RectangleShape2D" id=71]
+extents = Vector2( 12.5194, 18.2385 )
+
+[node name="Goblin" type="KinematicBody2D" groups=[
+"Enemy",
+]]
 position = Vector2( -0.700073, -0.247681 )
 collision_layer = 2
 collision_mask = 4
 script = ExtResource( 11 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
 position = Vector2( -2.43475, 9.36442 )
 shape = SubResource( 1 )
 
 [node name="Sprite" type="AnimatedSprite" parent="."]
 frames = SubResource( 50 )
-animation = "run"
-frame = 5
+animation = "idle"
+frame = 1
 playing = true
 
 [node name="Bomb" type="AnimatedSprite" parent="."]
@@ -445,14 +452,16 @@ collide_with_areas = true
 collide_with_bodies = false
 
 [node name="RightDownRay" type="RayCast2D" parent="."]
-position = Vector2( 10, 10 )
+position = Vector2( 15.0945, 9.60315 )
 enabled = true
-cast_to = Vector2( 0, 20 )
+cast_to = Vector2( 0, 30 )
+collision_mask = 4
 
 [node name="LeftDownRay" type="RayCast2D" parent="."]
-position = Vector2( -14.3654, 10 )
+position = Vector2( -15.9528, 10.3969 )
 enabled = true
-cast_to = Vector2( 0, 20 )
+cast_to = Vector2( 0, 30 )
+collision_mask = 4
 
 [node name="states" type="Node" parent="."]
 script = ExtResource( 9 )
@@ -461,6 +470,7 @@ script = ExtResource( 9 )
 script = ExtResource( 10 )
 
 [node name="dead" type="Node" parent="states"]
+script = ExtResource( 14 )
 
 [node name="run" type="Node" parent="states"]
 script = ExtResource( 12 )
@@ -469,3 +479,13 @@ script = ExtResource( 12 )
 script = ExtResource( 13 )
 
 [node name="ranged_attack" type="Node" parent="states"]
+
+[node name="EnemyArea" type="Area2D" parent="."]
+collision_layer = 2
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="EnemyArea"]
+position = Vector2( 0, 9.92126 )
+shape = SubResource( 71 )
+[connection signal="animation_finished" from="Sprite" to="." method="_on_Sprite_animation_finished"]
+[connection signal="body_entered" from="EnemyArea" to="." method="_on_Area2D_body_entered"]

@@ -4,21 +4,15 @@ var fsm: StateMachineForGoblin
 
 
 func enter():
-	fsm.enemy.play('idle')
-	if not fsm.is_player_found():
-		yield(get_tree().create_timer(1), "timeout")
-	if not fsm.enemy_root.dead_status:
-		exit('run')
-		
+	fsm.enemy.play('dead')	
 
 
 func exit(next_state):
-	fsm.change_to(next_state)
+	pass
 
 
 func process(_delta):
-	if fsm.player_is_close():
-		exit('close_attack')
+	pass
 
 
 func physics_process(_delta):
@@ -37,3 +31,4 @@ func unhandled_key_input(_event):
 
 func notification(_what, _flag = false):
 	pass
+

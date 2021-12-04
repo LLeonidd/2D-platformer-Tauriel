@@ -8,13 +8,11 @@ onready var slide_particles
 func enter():
 	fsm.audio.get_node('Sliding').play()
 	fsm.player.play('slide')
-	
+	# Resizing the areas of contact for a tighter pressure against the wall
 	var transform = fsm.player_root.get_node("CollisionShape2D").get_shape()
 	var oldScale = transform.get_extents()
 	print(oldScale)
 	transform.set_extents (Vector2 (oldScale.x-2, oldScale.y))
-	
-	
 	
 	fsm.player_root.double_jump = true
 	slide_particles=fsm.player.get_node('slide_particles')
@@ -23,16 +21,14 @@ func enter():
 	slide_particles.scale = Vector2(fsm.get_direction(!fsm.player.flip_h),1)
 	slide_particles.position.x = fsm.get_direction(!fsm.player.flip_h) * abs(slide_particles.position.x)
 	direction = fsm.get_direction(Input.is_action_pressed(fsm.player_root.ui_right))
-	
 
 
 func exit(next_state):
-	
 	var transform = fsm.player_root.get_node("CollisionShape2D").get_shape()
 	var oldScale = transform.get_extents()
 	print(oldScale)
+	# Returned size of collision shape
 	transform.set_extents (Vector2 (oldScale.x+2, oldScale.y))
-	
 	fsm.audio.get_node('Sliding').stop()
 	slide_particles.emitting = false
 	slide_particles.visible = false

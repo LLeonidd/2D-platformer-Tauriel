@@ -42,6 +42,7 @@ func physics_process(_delta):
 		exit('run')
 	if fsm.player_root.is_on_floor():
 		exit('idle')
+	print('WALL: ', fsm.player_root.is_on_wall())
 	if (
 		fsm.player_root.is_on_wall() 
 		and 

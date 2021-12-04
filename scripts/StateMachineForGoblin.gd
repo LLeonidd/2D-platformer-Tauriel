@@ -78,6 +78,9 @@ func _process(delta):
 func _physics_process(delta):
 	if state.has_method("physics_process"):
 		state.physics_process(delta)
+	if check_dead():
+		change_to('dead')
+	
 
 
 func _input(event):
@@ -183,6 +186,20 @@ func exceeding_limit():
 		return false
 		
 
+func break_detector():
+	"""
+	Determines the presence of a cliff under the left and right rays 
+	"""
+	var left_direction = self.enemy.is_flipped_h()
+	var right_direction = not self.enemy.is_flipped_h()
+	var left_break = false
+	var right_break = false
+	if not left_down_ray.is_colliding() and left_direction: 
+		left_break = true
+	if not right_down_ray.is_colliding() and right_direction: 
+		right_break=true
+	return left_break or right_break
+
 
 func need_direction():
 	"""
@@ -191,11 +208,22 @@ func need_direction():
 	var _exceeding_limit
 	var _is_on_wall
 	var _player_is_detect
+	var _breack_detector
+	break_detector()
 	_exceeding_limit = exceeding_limit()
 	_is_on_wall = self.enemy_root.is_on_wall()
 	_player_is_detect = self.player_is_detect(self.left_ray) or self.player_is_detect(self.right_ray)
-	print(_exceeding_limit, _is_on_wall, _player_is_detect)
-	if (_exceeding_limit or _is_on_wall) and not _player_is_detect:
+	_breack_detector = break_detector()
+	if (_exceeding_limit and not _player_is_detect) or _is_on_wall  or _breack_detector:
 		return true
 	else:
 		return false
+
+func check_dead():
+	if enemy_root.dead_trigger:
+		enemy_root.dead_trigger = false
+		return true
+	else: 
+		return false
+		
+		

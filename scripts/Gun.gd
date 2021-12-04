@@ -1,7 +1,7 @@
 extends Position2D
 
 
-const BULLET_VELOCITY = 1000.0
+const BULLET_VELOCITY = 800.0
 const Bullet = preload("res://scenes/Distant_weapon.tscn")
 
 func direction_to_bool(direction):

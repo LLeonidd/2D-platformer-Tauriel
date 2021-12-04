@@ -680,8 +680,8 @@ shape = SubResource( 1 )
 [node name="Sprite" type="AnimatedSprite" parent="."]
 position = Vector2( -3, -2 )
 frames = SubResource( 114 )
-animation = "idle"
-frame = 15
+animation = "slide"
+frame = 1
 playing = true
 
 [node name="Gun" type="Position2D" parent="Sprite"]
