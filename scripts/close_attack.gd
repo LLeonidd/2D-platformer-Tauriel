@@ -21,37 +21,36 @@ func stop_sound_sword_attack():
 	fsm.audio.get_node('SwordAttack_2').stop()
 	
 
+
 func enter():
 	#yield(get_tree().create_timer(2.0), "timeout")
 	fsm.player.play('close_attack')
 	#Play sound attack
-	play_sound_sword_attack()
-	
-
+	#play_sound_sword_attack()
 
 
 func exit(next_state):
 	stop_sound_sword_attack()
-	fsm.change_to(next_state)
+	fsm.close_attack_area.get_node('Strike1').set_disabled(true)
+	if next_state == 'back':
+		fsm.back()
+	else:
+		fsm.change_to(next_state)
+
 
 ####################################################
 ### Optional handler functions for game loop events.
-### Delete the ones that you don't need.
 ####################################################
-func process(_delta):
-	# Replace pass with your handler code
-	pass
 
 func physics_process(_delta):
 	if fsm.player.get_frame() in fsm.CLOSE_ATTACK_FRAMES:
 		fsm.close_attack_area.get_node('Strike1').set_disabled(false)
 	else:
 		fsm.close_attack_area.get_node('Strike1').set_disabled(true)
-	
 	if fsm.player_root.dead_status:
 		exit('dead')
 	if not Input.is_action_pressed(fsm.player_root.ui_close_attack):
-		fsm.back()
+		exit('back')
 
 func input(_event):
 	## attacks listener#####

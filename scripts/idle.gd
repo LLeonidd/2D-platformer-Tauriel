@@ -2,9 +2,6 @@ extends Node
 
 var fsm: StateMachine
 
-#Imports
-#var fsm = load("res://scripts/StateMachine.gd").new()
-
 
 func enter():
 	fsm.player.play('idle')

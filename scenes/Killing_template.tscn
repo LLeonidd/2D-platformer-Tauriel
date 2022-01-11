@@ -4,22 +4,27 @@
 [ext_resource path="res://assets/weapons/killing_beaf.png" type="Texture" id=2]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 40.3309, 20.4712 )
+extents = Vector2( 36.9633, 11.7676 )
 
-[node name="KillingWeapon" type="StaticBody2D"]
-collision_layer = 2
+[node name="KillingWeapon" type="Node2D"]
+
+[node name="KillingWeapon" type="KinematicBody2D" parent="."]
+collision_layer = 4
 script = ExtResource( 1 )
+vertical_direction = true
 
-[node name="WeaponCollisionBodyShape" type="CollisionShape2D" parent="."]
+[node name="WeaponCollisionBodyShape" type="CollisionShape2D" parent="KillingWeapon"]
 position = Vector2( -1.49012e-08, 0 )
 shape = SubResource( 1 )
 
-[node name="Sprite" type="Sprite" parent="WeaponCollisionBodyShape"]
+[node name="Sprite" type="Sprite" parent="KillingWeapon/WeaponCollisionBodyShape"]
 texture = ExtResource( 2 )
 
-[node name="WeaponCollisionArea" type="Area2D" parent="WeaponCollisionBodyShape/Sprite"]
+[node name="WeaponCollisionArea" type="Area2D" parent="KillingWeapon/WeaponCollisionBodyShape/Sprite"]
 collision_layer = 2
 
-[node name="WeaponCollisionAreaShape" type="CollisionShape2D" parent="WeaponCollisionBodyShape/Sprite/WeaponCollisionArea"]
+[node name="WeaponCollisionAreaShape" type="CollisionShape2D" parent="KillingWeapon/WeaponCollisionBodyShape/Sprite/WeaponCollisionArea"]
+position = Vector2( 0, 0.280617 )
+scale = Vector2( 1.1, 1.3 )
 shape = SubResource( 1 )
-[connection signal="body_entered" from="WeaponCollisionBodyShape/Sprite/WeaponCollisionArea" to="." method="_on_Area2D_body_entered"]
+[connection signal="body_entered" from="KillingWeapon/WeaponCollisionBodyShape/Sprite/WeaponCollisionArea" to="KillingWeapon" method="_on_Area2D_body_entered"]

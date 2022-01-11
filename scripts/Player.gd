@@ -1,13 +1,26 @@
 extends KinematicBody2D
 
+const UTILS = preload("res://scripts/utils.gd")
 const SPEED = 150#180
 const GRAVITY = 25
 const JUMPFORCE = -500
 const SPEED_SLIDE = 70
+const CLOSE_ATTACK_POLIGON = 'Sprite/CloseAttackArea/Strike1'
+const PLAYER_SPRITE = 'Sprite'
+const ATTACK_POLIGON_SETTINGS = {
+	'direction_right':{
+		'x':4.238,
+		'y':'current',
+	},
+	'direction_left':{
+		'x':0,
+		'y':'current',
+	},
+}
 
+var utils = UTILS.new()
 var velocity = Vector2(0,0) # Скорость игрока по координатам x, y
 var double_jump 
-
 var ui_left = 'ui_left'
 var ui_right = 'ui_right'
 var ui_up = 'ui_up'
@@ -20,6 +33,7 @@ var camera_normal_offset_y = -140
 var camera_normal_zoom_x
 var camera_normal_zoom_y
 
+
 func _ready():
 	camera_normal_zoom_x = self.get_node("Camera2D").get_zoom()[0]
 	camera_normal_zoom_y = self.get_node("Camera2D").get_zoom()[1]
@@ -28,8 +42,14 @@ func _ready():
 
 
 func _physics_process(delta):
-	velocity = move_and_slide(velocity, Vector2.UP) # Vector2.UP - направелние снизу вверх. Внизу пол.
+	velocity = move_and_slide_with_snap(velocity,Vector2.ZERO, Vector2.UP) # Vector2.UP - направелние снизу вверх. Внизу пол.
 	velocity.y +=  GRAVITY
+	
+	utils.direction_child_from_parrent(
+		get_node(PLAYER_SPRITE).is_flipped_h(), 
+		get_node(CLOSE_ATTACK_POLIGON), 
+		ATTACK_POLIGON_SETTINGS
+		)
 	
 	# Allows you to stop instead of sliding constantly
 	# lerp interpolation

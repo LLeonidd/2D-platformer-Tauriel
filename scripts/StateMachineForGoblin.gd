@@ -2,7 +2,7 @@ extends Node
 
 class_name StateMachineForGoblin
 
-const DEBUG = false
+const DEBUG = true
 const PATH_TO_PARENT = '../'
 const PLAYER_OBJECT = 'Sprite' 
 const SATATE_LABEL = 'current_state'
@@ -13,6 +13,7 @@ const RIGHT_DOWN_RAY = 'RightDownRay'
 const MIN_VELOCITY_FOR_SLIDE = -500 # The speed at which sliding is available. For example, do not slide on low walls
 const MAX_VELOCITY_DEADLY_FALLING = 1000 
 const AUDIO = 'MusicEffects'
+
 
 var state: Object
 
@@ -117,6 +118,7 @@ func break_is_detect():
 	"""
 	Break detection 
 	"""
+	pass
 	
 
 

@@ -4,12 +4,13 @@ var fsm: StateMachineForGoblin
 
 
 func enter():
+	fsm.enemy_root.blood('show')
 	fsm.enemy.play('hit')
-
 
 
 func exit(next_state):
 	fsm.change_to(next_state)
+
 
 
 func process(_delta):
@@ -18,6 +19,7 @@ func process(_delta):
 
 func physics_process(_delta):
 	if not fsm.enemy_root.hit_status:
+		#The status will change upon completion of the HIT animation 
 		exit('run')
 
 	

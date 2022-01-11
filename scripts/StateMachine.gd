@@ -12,7 +12,7 @@ const MIN_VELOCITY_FOR_SLIDE = -500 # The speed at which sliding is available. F
 const MAX_VELOCITY_DEADLY_FALLING = 1000 
 const AUDIO = 'MusicEffects'
 const CLOSE_ATTACK_AREA = 'CloseAttackArea'
-const CLOSE_ATTACK_FRAMES = [2,8,15]
+const CLOSE_ATTACK_FRAMES = [2,3,8,9,15,16]
 var state: Object
 var history = []
 
@@ -31,6 +31,7 @@ onready var audio = player_root.find_node(AUDIO)
 
 #refs to functions
 #onready var move_and_slide = funcref(player_root, "move_and_slide")
+
 
 
 func _ready():
@@ -115,6 +116,6 @@ func wall_detector():
 	if self.player.is_flipped_h(): left_direction = true
 	if not self.player.is_flipped_h(): right_direction = true
 	return (left_wall_ray.is_colliding() and left_direction)  or (right_wall_ray.is_colliding() and right_direction)
-	
+
 
 

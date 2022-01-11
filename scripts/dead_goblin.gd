@@ -4,7 +4,9 @@ var fsm: StateMachineForGoblin
 
 
 func enter():
-	fsm.enemy.play('dead')	
+	fsm.enemy_root.blood('show')
+	fsm.enemy.play('dead')
+	
 
 
 func exit(next_state):
