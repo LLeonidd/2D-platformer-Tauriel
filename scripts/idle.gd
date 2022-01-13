@@ -3,12 +3,20 @@ extends Node
 var fsm: StateMachine
 
 
+
 func enter():
 	fsm.player.play('idle')
 
 
 func exit(next_state):
 	fsm.change_to(next_state)
+	
+
+func required_checked():
+	if is_instance_valid(fsm):
+		if fsm.check_hit(): exit('hit')
+		if fsm.player_root.dead_status: exit('dead')
+
 
 
 func process(_delta):
@@ -16,8 +24,7 @@ func process(_delta):
 		exit("run")
 	if not fsm.player_root.is_on_floor():
 		exit('falling')
-	if fsm.player_root.dead_status:
-		exit('dead')
+	
 
 
 func physics_process(_delta):

@@ -10,18 +10,14 @@ func enter():
 	fsm.player_root.double_jump = true
 
 
-
-
 func exit(next_state):
 	fsm.change_to(next_state)
+	
 
-####################################################
-### Optional handler functions for game loop events.
-### Delete the ones that you don't need.
-####################################################
-func process(_delta):
-	# Replace pass with your handler code
-	pass
+func required_checked():
+	if fsm.check_hit(): exit('hit')
+	if fsm.player_root.dead_status: exit('dead')
+
 
 func physics_process(_delta):
 	if Input.is_action_just_pressed(fsm.player_root.ui_up) and fsm.player_root.is_on_floor():
@@ -34,8 +30,6 @@ func physics_process(_delta):
 		fsm.set_direction(fsm.player, false)
 
 	# Return to next station
-	if fsm.player_root.dead_status:
-		exit('dead')
 	if not Input.is_action_pressed(fsm.player_root.ui_up) and fsm.player_root.is_on_floor():
 		exit('idle')
 	if (Input.is_action_pressed(fsm.player_root.ui_left) or Input.is_action_pressed(fsm.player_root.ui_right)) and  fsm.player_root.is_on_floor():
@@ -55,8 +49,6 @@ func physics_process(_delta):
 		exit('slide')
 	if fsm.player_root.velocity.y>0:
 		exit('falling')
-
-	
 
 
 func input(_event):

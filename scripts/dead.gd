@@ -15,9 +15,10 @@ func enter():
 	
 	fsm.player_root.set_position(current_level.get_node('Checkpoint1').get_position())
 	
-	
 	current_level.get_node('Checkpoint1').play()
 
+	fsm.player_root.show_blood()
+	fsm.player_root.hit_counter = 0
 	fsm.player_root.dead_status = false
 	exit('idle')
 

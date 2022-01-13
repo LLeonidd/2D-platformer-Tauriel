@@ -28,12 +28,6 @@ onready var audio = player_root.find_node(AUDIO)
 # user actions
 
 
-
-#refs to functions
-#onready var move_and_slide = funcref(player_root, "move_and_slide")
-
-
-
 func _ready():
 	# Set the initial state to the first child node
 	state = get_child(0)
@@ -67,6 +61,7 @@ func _enter_state():
 # Route Game Loop function calls to
 # current state handler method if it exists
 func _process(delta):
+	_required_checked()
 	if state.has_method("process"):
 		state.process(delta)
 
@@ -74,7 +69,14 @@ func _process(delta):
 func _physics_process(delta):
 	if state.has_method("physics_process"):
 		state.physics_process(delta)
+		
 
+func check_hit():
+	if player_root.hit_trigger:
+		player_root.hit_trigger = false
+		return true
+	else: 
+		return false
 
 func _input(event):
 	if state.has_method("input"):
@@ -93,6 +95,11 @@ func _unhandled_key_input(event):
 func _notification(what):
 	if state and state.has_method("notification"):
 			state.notification(what)
+
+# Methods for checking for prerequisites, such as being in a state of death 
+func _required_checked():
+	if state and state.has_method("required_checked"):
+		state.required_checked()
 
 
 # Aditional functions

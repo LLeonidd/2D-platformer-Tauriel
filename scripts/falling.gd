@@ -11,13 +11,16 @@ func exit(next_state):
 	fsm.change_to(next_state)
 
 
+func required_checked():
+	if fsm.check_hit(): exit('hit')
+	if fsm.player_root.dead_status: exit('dead')
+	
+
 func process(_delta):
 	# Replace pass with your handler code
 	pass
 
 func physics_process(_delta):
-	if fsm.player_root.dead_status:
-		exit('dead')
 	if fsm.player_root.is_on_floor():
 		exit('idle')
 	if Input.is_action_pressed(fsm.player_root.ui_right):
@@ -26,9 +29,9 @@ func physics_process(_delta):
 	if Input.is_action_pressed(fsm.player_root.ui_left):
 		fsm.player_root.velocity.x = fsm.get_direction(false)*fsm.player_root.SPEED
 		fsm.set_direction(fsm.player, false)
-
 	if fsm.wall_detector() and (Input.is_action_pressed(fsm.player_root.ui_left) or Input.is_action_pressed(fsm.player_root.ui_right)):
 		exit('slide')
+
 
 func input(_event):
 	if Input.is_action_just_pressed(fsm.player_root.ui_up) and fsm.player_root.double_jump:

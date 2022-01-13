@@ -7,16 +7,10 @@ const JUMPFORCE = -500
 const SPEED_SLIDE = 70
 const CLOSE_ATTACK_POLIGON = 'Sprite/CloseAttackArea/Strike1'
 const PLAYER_SPRITE = 'Sprite'
-const ATTACK_POLIGON_SETTINGS = {
-	'direction_right':{
-		'x':4.238,
-		'y':'current',
-	},
-	'direction_left':{
-		'x':0,
-		'y':'current',
-	},
-}
+
+# OFFSET SETTINGS
+const ATTACK_POLIGON_SETTINGS = [{'x': 4.238, 'y': null}, {'x': 0, 'y': null}]
+const BLOOD_OFSET = [{'x': 51, 'y': 0}, {'x': 0, 'y': 0}] # id direction=0, then the zero element of the array 
 
 var utils = UTILS.new()
 var velocity = Vector2(0,0) # Скорость игрока по координатам x, y
@@ -32,6 +26,12 @@ var camera_normal_offset_x = 0
 var camera_normal_offset_y = -140
 var camera_normal_zoom_x
 var camera_normal_zoom_y
+var max_number_hit = 30
+var hit_counter = 0
+var hit_status = false
+var hit_trigger =false
+
+onready var bloods = $Bloods
 
 
 func _ready():
@@ -54,7 +54,11 @@ func _physics_process(delta):
 	# Allows you to stop instead of sliding constantly
 	# lerp interpolation
 	# Interpolates the numbers x to 0, in 30% increments 
-	velocity.x = lerp(velocity.x, 0, 0.3) 
+	velocity.x = lerp(velocity.x, 0, 0.3)
+
+
+func show_blood():
+	bloods.blood('show', 'red_blood', not get_node(PLAYER_SPRITE).is_flipped_h(), BLOOD_OFSET)
 
 
 func dead(from_object):
@@ -62,9 +66,27 @@ func dead(from_object):
 	object_collision = from_object
 	
 
+func hit(area):
+	hit_counter+=1
+	if hit_counter<max_number_hit:
+		hit_status = true
+		hit_trigger = true
+	else:
+		dead(area)
+	
+
 func camera_normalize():
-	print('OFSET ', camera_normal_offset_x,'    ', camera_normal_offset_y)
-	print('ZOOM ', camera_normal_zoom_x,'    ', camera_normal_zoom_y)
 	self.get_node('Camera2D').set_offset(Vector2(camera_normal_offset_x, camera_normal_offset_y))
 	self.get_node('Camera2D').set_zoom(Vector2(camera_normal_zoom_x, camera_normal_zoom_y))
 
+
+func _on_PlayerArea_area_entered(area):
+	if area.is_in_group("EnemyCloseAttack") and not hit_status and not dead_status:
+		hit(area)
+	
+
+func _on_Sprite_animation_finished():
+	var current_animation = $Sprite.get_animation()
+	if current_animation == 'hit':
+		if hit_status:
+			hit_status=false

@@ -324,3 +324,6 @@ script = ExtResource( 20 )
 
 [node name="Goblin" parent="." instance=ExtResource( 23 )]
 position = Vector2( 350.818, 900.596 )
+
+[node name="Goblin2" parent="." instance=ExtResource( 23 )]
+position = Vector2( 953.722, 780.37 )

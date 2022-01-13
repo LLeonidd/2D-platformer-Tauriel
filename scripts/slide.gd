@@ -26,13 +26,17 @@ func enter():
 func exit(next_state):
 	var transform = fsm.player_root.get_node("CollisionShape2D").get_shape()
 	var oldScale = transform.get_extents()
-	print(oldScale)
 	# Returned size of collision shape
 	transform.set_extents (Vector2 (oldScale.x+2, oldScale.y))
 	fsm.audio.get_node('Sliding').stop()
 	slide_particles.emitting = false
 	slide_particles.visible = false
 	fsm.change_to(next_state)
+
+
+func required_checked():
+	if fsm.check_hit(): exit('hit')
+	if fsm.player_root.dead_status: exit('dead')
 
 
 func process(_delta):
@@ -42,12 +46,12 @@ func process(_delta):
 
 func physics_process(_delta):
 	fsm.player_root.velocity.y = fsm.player_root.SPEED_SLIDE
-	if fsm.player_root.dead_status:
-		exit('dead')	
+
 	if fsm.player_root.is_on_floor():
 		exit('idle')
 	if not fsm.wall_detector():
 		exit('falling')
+
 
 
 func input(_event):

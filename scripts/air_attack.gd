@@ -16,6 +16,11 @@ func enter():
 
 func exit(next_state):
 	fsm.change_to(next_state)
+	
+
+func required_checked():
+	if fsm.check_hit(): exit('hit')
+	if fsm.player_root.dead_status: exit('dead')
 
 
 func process(_delta):
@@ -25,8 +30,7 @@ func process(_delta):
 	if Input.is_action_pressed(fsm.player_root.ui_left):
 		fsm.player_root.velocity.x = fsm.get_direction(false)*fsm.player_root.SPEED
 		fsm.set_direction(fsm.player, false)
-	if fsm.player_root.dead_status:
-		exit('dead')
+
 
 func physics_process(_delta):
 	pass

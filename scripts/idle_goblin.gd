@@ -9,11 +9,16 @@ func enter():
 		yield(get_tree().create_timer(1), "timeout")
 	if not fsm.enemy_root.dead_status:
 		exit('run')
-		
 
 
 func exit(next_state):
 	fsm.change_to(next_state)
+	
+
+func required_checked():
+	if is_instance_valid(fsm):
+		if fsm.check_dead(): exit('dead')
+		if fsm.check_hit(): exit('hit')
 
 
 func process(_delta):

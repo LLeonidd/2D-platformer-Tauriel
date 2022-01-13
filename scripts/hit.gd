@@ -1,26 +1,27 @@
 extends Node
 
-var fsm: StateMachineForGoblin
+var fsm: StateMachine
 
 
 func enter():
-	fsm.enemy_root.blood('show')
-	fsm.enemy.play('hit')
+	fsm.player_root.show_blood()
+	fsm.player.play('hit')
 
 
 func exit(next_state):
-	fsm.change_to(next_state)
-
+	if next_state=='back':
+		fsm.back()
+	else:
+		fsm.change_to(next_state)
 
 
 func process(_delta):
-	pass
+	if not fsm.player_root.hit_status:
+		exit('run')
 
 
 func physics_process(_delta):
-	if not fsm.enemy_root.hit_status:
-		#The status will change upon completion of the HIT animation 
-		exit('run')
+	pass
 
 	
 func input(_event):

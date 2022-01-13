@@ -19,21 +19,23 @@ func enter():
 	# Play bullet
 	fsm.player.get_node('Gun').shoot(fsm.get_direction(direction))
 	yield(get_tree().create_timer(0.1), "timeout")
-	fsm.back()
+	exit('back')
 
 
 func exit(next_state):
-	fsm.change_to(next_state)
+	if next_state=='back':
+		fsm.back()
+	else:
+		fsm.change_to(next_state)
 
 
-func process(_delta):
-	pass
-	#if not Input.is_action_pressed(fsm.player_root.ui_ranged_attack):
-	#	fsm.back()
+func required_checked():
+	if fsm.check_hit(): exit('hit')
+	if fsm.player_root.dead_status: exit('dead')
+
 
 func physics_process(_delta):
-	if fsm.player_root.dead_status:
-		exit('dead')
+	pass
 
 func input(_event):
 	pass

@@ -6,16 +6,19 @@ var _speed_for_attack = 1 # Factor for changing the speed when attacking
 
 func enter():
 	fsm.enemy.play('run')
-	
 
 
 func exit(next_state):
 	fsm.change_to(next_state)
 
 
+func required_checked():
+	if fsm.check_dead(): exit('dead')
+	if fsm.check_hit(): exit('hit')
+
+
 func process(_delta):
 	pass
-
 
 
 func physics_process(_delta):
@@ -35,9 +38,7 @@ func physics_process(_delta):
 	# if nearlest Player
 	if fsm.player_is_close():
 		_speed_for_attack = 1
-		exit('close_attack') 
-	
-
+		exit('close_attack')
 
 	
 func input(_event):

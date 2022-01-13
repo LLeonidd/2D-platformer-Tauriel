@@ -2,7 +2,7 @@ extends Node
 
 class_name StateMachineForGoblin
 
-const DEBUG = true
+const DEBUG = false
 const PATH_TO_PARENT = '../'
 const PLAYER_OBJECT = 'Sprite' 
 const SATATE_LABEL = 'current_state'
@@ -13,7 +13,8 @@ const RIGHT_DOWN_RAY = 'RightDownRay'
 const MIN_VELOCITY_FOR_SLIDE = -500 # The speed at which sliding is available. For example, do not slide on low walls
 const MAX_VELOCITY_DEADLY_FALLING = 1000 
 const AUDIO = 'MusicEffects'
-
+const CLOSE_ATTACK_AREA = 'CloseAttackArea'
+const CLOSE_ATTACK_FRAMES = [4,5]
 
 var state: Object
 
@@ -34,10 +35,12 @@ onready var right_ray = enemy_root.find_node(RIGHT_RAY)
 onready var left_down_ray = enemy_root.find_node(LEFT_DOWN_RAY)
 onready var right_down_ray = enemy_root.find_node(RIGHT_DOWN_RAY)
 onready var audio = enemy_root.find_node(AUDIO)
+onready var close_attack_area = enemy.get_node(CLOSE_ATTACK_AREA)
 # user actions
 #refs to functions
 #onready var move_and_slide = funcref(player_root, "move_and_slide")
 
+	
 
 func _ready():
 	# Set the initial state to the first child node
@@ -72,6 +75,7 @@ func _enter_state():
 # Route Game Loop function calls to
 # current state handler method if it exists
 func _process(delta):
+	_required_checked()
 	if state.has_method("process"):
 		state.process(delta)
 
@@ -79,12 +83,8 @@ func _process(delta):
 func _physics_process(delta):
 	if state.has_method("physics_process"):
 		state.physics_process(delta)
-	if check_dead():
-		change_to('dead')
-	if check_hit():
-		change_to('hit')
 	
-
+		
 
 func _input(event):
 	if state.has_method("input"):
@@ -103,6 +103,11 @@ func _unhandled_key_input(event):
 func _notification(what):
 	if state and state.has_method("notification"):
 			state.notification(what)
+			
+# Methods for checking for prerequisites, such as being in a state of death 
+func _required_checked():
+	if state and state.has_method("required_checked"):
+		state.required_checked()
 
 #Custom functions
 func direction_bool_to_int(val):
@@ -126,8 +131,10 @@ func player_is_detect(raycast, group='Player'):
 	if raycast.is_colliding():
 		if raycast.get_collider().is_in_group(group):
 			return raycast.get_collider()
-		else: return false
-	else: return false
+		else: 
+			return false
+	else:
+		return false
 
 
 func is_player_found():
@@ -237,7 +244,5 @@ func check_hit():
 	else: 
 		return false
 		
-func dead_or_hit_check():
-	return check_dead() or check_hit()
-		
+	
 		

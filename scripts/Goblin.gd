@@ -1,18 +1,21 @@
 extends KinematicBody2D
 
+const UTILS = preload("res://scripts/utils.gd")
 const SPEED = 120#180
 const GRAVITY = 25
 const JUMPFORCE = -500
 const SPEED_SLIDE = 70
 const ENEMY_AREA = 'EnemyArea'
 const CLOSE_ATTACKS = ['close_attack','close_attack2']
+const ENEMY_SPRITE = 'Sprite'
+const CLOSE_ATTACK_POLIGON = ENEMY_SPRITE+'/CloseAttackArea/Strike1'
 
-export var MAX_NUMBER_HIT = 3 # The maximum permissible number of blows, after which death occurs 
+export var MAX_NUMBER_HIT = 10 # The maximum permissible number of blows, after which death occurs 
 export var min_attack_distance = 25 # The minimum distance to the player when you can make an attack 
 export var max_attack_distance = 30 # The maximum distance to the player when you can make an attack 
 export var limit_position = 100 # How far can you move before turning 
 
-
+var utils = UTILS.new()
 var max_attack_speed = 1.6
 var velocity = Vector2(0,0) 
 var dead_trigger = false
@@ -21,60 +24,41 @@ var hit_trigger = false
 var hit_status = false # Required to complete the animation  and do not count the blows while it is in a hit state 
 var hit_counter = 0
 var close_attack_finished = false
-
 var initial_pos
 
-func get_chield_by_name(root_element, prefix):
-	"""
-	Get a random child from the parent. 
-	Perfix is required to filter children by name 
-	"""
-	var children_array=[]
-	for chield in root_element.get_children():
-			if prefix in chield.get_name():
-				children_array.append(chield)
-	return children_array
+onready var health_bar = $HealthBar
+onready var bloods = $Bloods
 
+# OFFSET SETTINGS
+const BLOOD_OFSET = [{'x':25, 'y':0}, {'x':-25, 'y':0}] # id direction=0, then the zero element of the array 
 
-func get_random_array_element(_array):
-	return _array[randi() % _array.size()]
-
-
-func blood(action):
-	var bloods_array = get_chield_by_name(get_node('Sprite'), 'blood')
-	var blood_node = get_random_array_element(bloods_array)
-	var offset_x = 25
-	var offset_y = 0
-	#var blood_node = get_node('Sprite/blood1')
-	if action == 'show':
-		blood_node.set_flip_h(not $Sprite.is_flipped_h())
-		blood_node.set_offset(Vector2((2*int($Sprite.is_flipped_h())-1)*offset_x,offset_y))
-		blood_node.visible = true
-		blood_node.set_frame(0)
-		blood_node.play()
-		
-	else:
-		for blood in bloods_array:
-			blood.visible = false
-			blood.stop()
 
 
 
 func _ready():
 	initial_pos = self.get_global_position()
-	blood('hide')
+
+	#blood('hide')
+
+
 
 
 func _physics_process(delta):
 	velocity = move_and_slide(velocity, Vector2.UP)
 	velocity.y +=  GRAVITY
 	velocity.x = lerp(velocity.x, 0, 0.3) 
-	$curent_health.text = 'health: '+String(MAX_NUMBER_HIT - hit_counter)
+	
+	utils.direction_child_from_parrent(
+		get_node(ENEMY_SPRITE).is_flipped_h(), 
+		get_node(CLOSE_ATTACK_POLIGON)
+		)
+		
+func show_blood():
+	bloods.blood('show', 'green_blood', not get_node(ENEMY_SPRITE).is_flipped_h(), BLOOD_OFSET)
 
 func hit():
 	hit_counter +=1
 	if hit_counter<MAX_NUMBER_HIT:
-		# go to the hit state in FSM
 		hit_trigger = true
 		hit_status = true 
 	else:
@@ -107,6 +91,7 @@ func _on_EnemyArea_area_entered(weapon):
 
 func _on_Sprite_animation_finished():
 	var current_animation = $Sprite.get_animation()
+	#get_node(CLOSE_ATTACK_POLIGON).set_disabled(true)
 	if current_animation in CLOSE_ATTACKS:
 		close_attack_finished = true 
 	if current_animation == 'dead':
@@ -116,16 +101,3 @@ func _on_Sprite_animation_finished():
 	if current_animation == 'hit':
 		if hit_status:
 			hit_status=false
-
-		
-
-func _on_blood1_animation_finished():
-	blood('hide')
-
-
-func _on_blood2_animation_finished():
-	blood('hide')
-
-
-func _on_blood3_animation_finished():
-	blood('hide')

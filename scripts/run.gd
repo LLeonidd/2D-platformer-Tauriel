@@ -13,6 +13,11 @@ func exit(next_state):
 	fsm.change_to(next_state)
 
 
+func required_checked():
+	if fsm.check_hit(): exit('hit')
+	if fsm.player_root.dead_status: exit('dead')
+	
+
 func process(_delta):
 	# Replace pass with your handler code
 	pass
@@ -28,8 +33,7 @@ func physics_process(_delta):
 		exit('idle')
 	if not fsm.player_root.is_on_floor():
 		exit('falling')
-	if fsm.player_root.dead_status:
-		exit('dead')
+
 
 
 func input(_event):

@@ -2,7 +2,6 @@ extends Node
 
 var fsm: StateMachine
 
-
 func play_sound_sword_attack():
 	var delta_volume=4
 	var value_db_1 = -9
@@ -38,19 +37,21 @@ func exit(next_state):
 		fsm.change_to(next_state)
 
 
-####################################################
-### Optional handler functions for game loop events.
-####################################################
+func required_checked():
+	if fsm.check_hit(): exit('hit')
+	if fsm.player_root.dead_status: exit('dead')
+
 
 func physics_process(_delta):
 	if fsm.player.get_frame() in fsm.CLOSE_ATTACK_FRAMES:
 		fsm.close_attack_area.get_node('Strike1').set_disabled(false)
 	else:
 		fsm.close_attack_area.get_node('Strike1').set_disabled(true)
-	if fsm.player_root.dead_status:
-		exit('dead')
+
 	if not Input.is_action_pressed(fsm.player_root.ui_close_attack):
 		exit('back')
+
+		
 
 func input(_event):
 	## attacks listener#####
