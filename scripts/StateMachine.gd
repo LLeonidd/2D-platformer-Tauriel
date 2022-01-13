@@ -72,8 +72,9 @@ func _physics_process(delta):
 		
 
 func check_hit():
-	if player_root.hit_trigger:
-		player_root.hit_trigger = false
+	if player_root.hit_status:
+	#if player_root.hit_trigger:
+		#player_root.hit_trigger = false
 		return true
 	else: 
 		return false

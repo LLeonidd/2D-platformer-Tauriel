@@ -1,5 +1,6 @@
 extends KinematicBody2D
 
+signal hit
 const UTILS = preload("res://scripts/utils.gd")
 const SPEED = 150#180
 const GRAVITY = 25
@@ -26,15 +27,19 @@ var camera_normal_offset_x = 0
 var camera_normal_offset_y = -140
 var camera_normal_zoom_x
 var camera_normal_zoom_y
-var max_number_hit = 30
+var max_number_hit = 10000
 var hit_counter = 0
 var hit_status = false
-var hit_trigger =false
+#var hit_trigger =false
 
 onready var bloods = $Bloods
 
-
+func test():
+	print('HIT')
+	
 func _ready():
+	connect("hit" , self, "test")
+	emit_signal("hit")
 	camera_normal_zoom_x = self.get_node("Camera2D").get_zoom()[0]
 	camera_normal_zoom_y = self.get_node("Camera2D").get_zoom()[1]
 	camera_normal_offset_x = self.get_node("Camera2D").get_offset()[0]
@@ -70,7 +75,7 @@ func hit(area):
 	hit_counter+=1
 	if hit_counter<max_number_hit:
 		hit_status = true
-		hit_trigger = true
+		#hit_trigger = true
 	else:
 		dead(area)
 	

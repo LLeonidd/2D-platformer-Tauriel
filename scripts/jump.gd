@@ -20,6 +20,7 @@ func required_checked():
 
 
 func physics_process(_delta):
+	required_checked()
 	if Input.is_action_just_pressed(fsm.player_root.ui_up) and fsm.player_root.is_on_floor():
 		fsm.player_root.velocity.y = fsm.player_root.JUMPFORCE
 	if Input.is_action_pressed(fsm.player_root.ui_right):

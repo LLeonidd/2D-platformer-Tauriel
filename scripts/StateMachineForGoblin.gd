@@ -119,13 +119,6 @@ func direction_bool_to_int(val):
 	"""
 	return -1 + 2*int(val)
 
-func break_is_detect():
-	"""
-	Break detection 
-	"""
-	pass
-	
-
 
 func player_is_detect(raycast, group='Player'):
 	if raycast.is_colliding():
@@ -238,8 +231,8 @@ func check_dead():
 		return false
 		
 func check_hit():
-	if enemy_root.hit_trigger:
-		enemy_root.hit_trigger = false
+	if enemy_root.hit_status:
+		enemy_root.hit_status = true
 		return true
 	else: 
 		return false

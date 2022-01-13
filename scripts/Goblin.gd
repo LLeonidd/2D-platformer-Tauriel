@@ -20,7 +20,7 @@ var max_attack_speed = 1.6
 var velocity = Vector2(0,0) 
 var dead_trigger = false
 var dead_status = false # Required to complete the animation 
-var hit_trigger = false
+#var hit_trigger = false
 var hit_status = false # Required to complete the animation  and do not count the blows while it is in a hit state 
 var hit_counter = 0
 var close_attack_finished = false
@@ -59,7 +59,7 @@ func show_blood():
 func hit():
 	hit_counter +=1
 	if hit_counter<MAX_NUMBER_HIT:
-		hit_trigger = true
+		#hit_trigger = true
 		hit_status = true 
 	else:
 		dead()

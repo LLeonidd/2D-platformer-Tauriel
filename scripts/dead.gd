@@ -7,6 +7,7 @@ var fsm: StateMachine
 
 func enter():
 	fsm.player.play('heart')
+	fsm.player_root.show_blood()
 	#fsm.player_root.object_collision.set_collision_mask_bit(0, false)
 	yield(get_tree().create_timer(0.9), "timeout")
 	
@@ -17,7 +18,7 @@ func enter():
 	
 	current_level.get_node('Checkpoint1').play()
 
-	fsm.player_root.show_blood()
+	
 	fsm.player_root.hit_counter = 0
 	fsm.player_root.dead_status = false
 	exit('idle')

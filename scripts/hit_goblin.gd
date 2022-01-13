@@ -13,7 +13,6 @@ func exit(next_state):
 	fsm.change_to(next_state)
 
 
-
 func process(_delta):
 	pass
 
