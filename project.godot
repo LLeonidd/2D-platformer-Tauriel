@@ -12,12 +12,12 @@ _global_script_classes=[ {
 "base": "Node",
 "class": "StateMachine",
 "language": "GDScript",
-"path": "res://scripts/StateMachine.gd"
+"path": "res://scenes/Player/scripts/sdtateMachine.gd"
 }, {
 "base": "Node",
 "class": "StateMachineForGoblin",
 "language": "GDScript",
-"path": "res://scripts/StateMachineForGoblin.gd"
+"path": "res://scenes/Enemy/scripts/StateMachineForGoblin.gd"
 } ]
 _global_script_class_icons={
 "StateMachine": "",
@@ -27,7 +27,7 @@ _global_script_class_icons={
 [application]
 
 config/name="Tauriel"
-run/main_scene="res://scenes/Level1.tscn"
+run/main_scene="res://scenes/Levels/scenes/Main.tscn"
 config/icon="res://assets/images/icon.png"
 
 [display]
@@ -56,6 +56,7 @@ ui_ranged_attack={
 2d_physics/layer_2="Enemy"
 2d_physics/layer_3="Platfrom"
 2d_physics/layer_4="Weapons_Player"
+2d_physics/layer_5="Weapons_Enemy"
 
 [rendering]
 

@@ -14,7 +14,7 @@ position = Vector2( 211.16, 69.1908 )
 scale = Vector2( 0.410942, 0.410942 )
 texture = ExtResource( 1 )
 
-[node name="Label" type="Label" parent="."]
+[node name="Lives" type="Label" parent="."]
 margin_left = 195.273
 margin_top = 36.7395
 margin_right = 235.273

@@ -36,16 +36,6 @@ func direction_child_from_parrent(parent_direction, child_node, settings=null):
 	if settings == null:
 		child_node.set_position(Vector2((2*int(parent_direction)-1)*abs(current_position[0]),current_position[1]))
 	else:
-		"""
-		var left_x = _get_val_settings(settings[parent_direction].x, current_position[0])
-		var left_y = _get_val_settings(settings.direction_left.y, current_position[1])
-		var right_x = _get_val_settings(settings.direction_right.x, current_position[0])
-		var right_y = _get_val_settings(settings.direction_right.y, current_position[1])
-		if parent_direction:
-			child_node.set_position(Vector2(left_x,left_y))
-		else:
-			child_node.set_position(Vector2(right_x,right_y))
-		"""
 		child_node.set_position(Vector2(
 			_get_val_settings(settings[int(parent_direction)].x, current_position[0]),
 			_get_val_settings(settings[int(parent_direction)].y, current_position[1])

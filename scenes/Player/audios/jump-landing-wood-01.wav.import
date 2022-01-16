@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/jump-landing-wood-01.wav-fb406211abf6d31dbc90990bb4669009.sample"
+
+[deps]
+
+source_file="res://scenes/Player/audios/jump-landing-wood-01.wav"
+dest_files=[ "res://.import/jump-landing-wood-01.wav-fb406211abf6d31dbc90990bb4669009.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=true
+edit/normalize=false
+edit/loop=false
+compress/mode=0

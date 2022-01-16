@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/sliding4.ogg-cc021e7de76b26f4e1b97b2d972b0743.oggstr"
+
+[deps]
+
+source_file="res://scenes/Player/audios/sliding4.ogg"
+dest_files=[ "res://.import/sliding4.ogg-cc021e7de76b26f4e1b97b2d972b0743.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0
